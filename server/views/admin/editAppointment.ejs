@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>Edit Appointment</title></head>
+<body>
+  <h2>Edit Appointment</h2>
+  <form method="POST" action="/admin/appointments/edit/<%= appointment.id %>">
+    <label>Patient:</label>
+    <select name="patientId">
+      <% patients.forEach(p => { %>
+        <option value="<%= p.id %>" <%= p.id === appointment.patientId ? 'selected' : '' %>><%= p.name %></option>
+      <% }); %>
+    </select><br>
+    <input type="datetime-local" name="date" value="<%= appointment.date.toISOString().slice(0,16) %>"><br>
+    <select name="status">
+      <option value="pending" <%= appointment.status === 'pending' ? 'selected' : '' %>>Pending</option>
+      <option value="completed" <%= appointment.status === 'completed' ? 'selected' : '' %>>Completed</option>
+      <option value="canceled" <%= appointment.status === 'canceled' ? 'selected' : '' %>>Canceled</option>
+    </select><br>
+    <textarea name="notes"><%= appointment.notes %></textarea><br>
+    <button type="submit">Update</button>
+  </form>
+</body>
+</html>

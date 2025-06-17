@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head><title>Appointments</title></head>
+<body>
+  <h2>Appointments</h2>
+  <a href="/admin/appointments/add">+ Add Appointment</a>
+  <table border="1">
+    <tr><th>Patient</th><th>Date</th><th>Status</th><th>Actions</th></tr>
+    <% appointments.forEach(a => { %>
+      <tr>
+        <td><%= a.Patient.name %></td>
+        <td><%= a.date.toLocaleString() %></td>
+        <td><%= a.status %></td>
+        <td>
+          <a href="/admin/appointments/edit/<%= a.id %>">Edit</a> |
+          <a href="/admin/appointments/delete/<%= a.id %>" onclick="return confirm('Delete?')">Delete</a>
+        </td>
+      </tr>
+    <% }); %>
+  </table>
+</body>
+</html>

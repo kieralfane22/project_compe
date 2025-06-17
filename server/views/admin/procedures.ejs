@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head><title>Procedures</title></head>
+<body>
+  <h2>Procedures</h2>
+  <a href="/admin/procedures/add">+ Add Procedure</a>
+  <table border="1">
+    <tr>
+      <th>Patient</th>
+      <th>Appointment Date</th>
+      <th>Procedure</th>
+      <th>Cost</th>
+      <th>Actions</th>
+    </tr>
+    <% procedures.forEach(p => { %>
+      <tr>
+        <td><%= p.Appointment.Patient.name %></td>
+        <td><%= p.Appointment.date.toLocaleString() %></td>
+        <td><%= p.name %></td>
+        <td>₱<%= p.cost.toFixed(2) %></td>
+        <td>
+          <a href="/admin/procedures/edit/<%= p.id %>">Edit</a> |
+          <a href="/admin/procedures/delete/<%= p.id %>" onclick="return confirm('Delete?')">Delete</a>
+        </td>
+      </tr>
+    <% }); %>
+  </table>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<form method="POST" action="/admin/appointments/<%= appointment.id %>/status">
+  <select name="status" onchange="this.form.submit()">
+    <option value="Pending" <%= appointment.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+    <option value="Confirmed" <%= appointment.status === 'Confirmed' ? 'selected' : '' %>>Confirmed</option>
+    <option value="Done" <%= appointment.status === 'Done' ? 'selected' : '' %>>Done</option>
+  </select>
+</form>

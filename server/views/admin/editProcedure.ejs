@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head><title>Edit Procedure</title></head>
+<body>
+  <h2>Edit Procedure</h2>
+  <form method="POST" action="/admin/procedures/edit/<%= procedure.id %>">
+    <label>Appointment:</label>
+    <select name="appointmentId">
+      <% appointments.forEach(a => { %>
+        <option value="<%= a.id %>" <%= a.id === procedure.appointmentId ? 'selected' : '' %>>
+          <%= a.Patient.name %> — <%= a.date.toLocaleString() %>
+        </option>
+      <% }); %>
+    </select><br>
+    <input type="text" name="name" value="<%= procedure.name %>" required><br>
+    <input type="number" step="0.01" name="cost" value="<%= procedure.cost %>"><br>
+    <textarea name="description"><%= procedure.description %></textarea><br>
+    <button type="submit">Update</button>
+  </form>
+</body>
+</html>

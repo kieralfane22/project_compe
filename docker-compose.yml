@@ -1,0 +1,30 @@
+version: '3.9'
+services:
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dental_clinic
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+
+  server:
+    build: ./server
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASS: root
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+
+  microservice:
+    build: ./microservice
+    ports:
+      - "5000:5000"
+
+volumes:
+  db-data:

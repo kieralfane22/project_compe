@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>Add Procedure</title></head>
+<body>
+  <h2>Add Procedure</h2>
+  <form method="POST" action="/admin/procedures/add">
+    <label>Appointment:</label>
+    <select name="appointmentId" required>
+      <% appointments.forEach(a => { %>
+        <option value="<%= a.id %>"><%= a.Patient.name %> — <%= a.date.toLocaleString() %></option>
+      <% }); %>
+    </select><br>
+    <input type="text" name="name" placeholder="Procedure name" required><br>
+    <input type="number" step="0.01" name="cost" placeholder="Cost"><br>
+    <textarea name="description" placeholder="Description"></textarea><br>
+    <button type="submit">Add</button>
+  </form>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>Edit Patient</title></head>
+<body>
+  <h2>Edit Patient</h2>
+  <form method="POST" action="/admin/patients/edit/<%= patient.id %>">
+    <input type="text" name="name" value="<%= patient.name %>" required><br>
+    <input type="date" name="birthdate" value="<%= patient.birthdate.toISOString().split('T')[0] %>" required><br>
+    <input type="text" name="address" value="<%= patient.address %>"><br>
+    <input type="text" name="contact" value="<%= patient.contact %>"><br>
+    <button type="submit">Update</button>
+  </form>
+</body>
+</html>

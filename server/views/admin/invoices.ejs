@@ -1,0 +1,31 @@
+<h2>Invoice Records</h2>
+<a href="/admin/invoices/create">+ New Invoice</a>
+
+<table border="1">
+  <tr>
+    <th>Patient</th>
+    <th>Appointment</th>
+    <th>Amount</th>
+    <th>Status</th>
+    <th>Notes</th>
+    <th>Action</th>
+  </tr>
+  <% invoices.forEach(i => { %>
+    <tr>
+      <td><%= i.Patient.name %></td>
+      <td>#<%= i.Appointment.id %> (<%= i.Appointment.date %>)</td>
+      <td>₱<%= i.amount.toFixed(2) %></td>
+      <td><%= i.status %></td>
+      <td><%= i.notes %></td>
+      <td>
+        <% if (i.status === 'unpaid') { %>
+          <form method="POST" action="/admin/invoices/<%= i.id %>/mark-paid">
+            <button type="submit">Mark as Paid</button>
+          </form>
+        <% } else { %>
+          Paid
+        <% } %>
+      </td>
+    </tr>
+  <% }); %>
+</table>
