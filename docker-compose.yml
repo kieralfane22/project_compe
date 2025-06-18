@@ -1,4 +1,5 @@
 version: '3.9'
+
 services:
   db:
     image: mysql:8
@@ -25,6 +26,15 @@ services:
     build: ./microservice
     ports:
       - "5000:5000"
+    depends_on:
+      - db
+
+  client:
+    build: ./client
+    ports:
+      - "3002:80"
+    depends_on:
+      - server
 
 volumes:
   db-data:

@@ -1,9 +1,14 @@
-# /client/Dockerfile
-FROM node:18 as build
-WORKDIR /client
+# Build phase
+FROM node:18 AS builder
+WORKDIR /app
 COPY . .
 RUN npm install
 RUN npm run build
 
+# Serve phase
 FROM nginx:alpine
-COPY --from=build /client/build /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Optional: Expose port and reduce logs
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

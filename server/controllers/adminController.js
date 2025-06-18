@@ -1,21 +1,29 @@
-import { Appointment } from '../models/index.js'; // Adjust the path if needed
+import { Appointment, Patient } from '../models/index.js';
 
-export const renderAdminDashboard = async (req, res) => {
+export const renderDashboard = async (req, res) => {
   try {
     const appointments = await Appointment.findAll({
+      include: {
+        model: Patient,
+        attributes: ['name'],
+      },
       order: [['date', 'DESC']],
       limit: 5
     });
 
+    const formattedAppointments = appointments.map(a => ({
+      id: a.id,
+      date: a.date,
+      status: a.status,
+      patientName: a.Patient?.name || 'Unknown'
+    }));
+
     res.render('admin/dashboard', {
       user: req.user,
-      appointments
+      appointments: formattedAppointments
     });
   } catch (err) {
-    console.error('🚨 Dashboard Load Error:', err); // log full error to terminal
-    res.status(500).send(`
-      <h1>❌ Dashboard Failed to Load</h1>
-      <pre>${err.stack}</pre> <!-- shows detailed error in browser -->
-    `);
+    console.error('Dashboard Error:', err);
+    res.status(500).send('Error loading dashboard');
   }
 };

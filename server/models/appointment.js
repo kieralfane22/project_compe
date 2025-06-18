@@ -13,6 +13,14 @@ export default (sequelize, DataTypes) => {
 
   Appointment.init(
     {
+      patientId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Patients', // this should match the table name in your DB
+          key: 'id'
+        }
+      },
       date: {
         type: DataTypes.DATE,
         allowNull: false,

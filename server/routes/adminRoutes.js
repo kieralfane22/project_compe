@@ -3,8 +3,7 @@ import { ensureAuth } from '../middleware/auth.js';
 import upload from '../middleware/upload.js';
 
 // === Controllers ===
-import { renderAdminDashboard } from '../controllers/adminController.js';
-
+import { renderDashboard } from '../controllers/adminController.js'; 
 import {
   renderLogin,
   loginUser,
@@ -56,7 +55,7 @@ import {
 const router = express.Router();
 
 // === ADMIN DASHBOARD ===
-router.get('/dashboard', ensureAuth, renderAdminDashboard);
+router.get('/dashboard', ensureAuth, renderDashboard); // ✅ Correct function here
 
 // === PATIENT ROUTES ===
 router.get('/patients', ensureAuth, getAllPatients);
@@ -73,7 +72,8 @@ router.post('/appointments/add', ensureAuth, addAppointment);
 router.get('/appointments/edit/:id', ensureAuth, renderEditAppointment);
 router.post('/appointments/edit/:id', ensureAuth, updateAppointment);
 router.get('/appointments/delete/:id', ensureAuth, deleteAppointment);
-router.patch('/appointments/:id/status', ensureAuth, updateAppointmentStatus);
+router.post('/appointments/:id/status', ensureAuth, updateAppointmentStatus);
+
 
 // === PROCEDURE ROUTES ===
 router.get('/procedures', ensureAuth, getAllProcedures);
